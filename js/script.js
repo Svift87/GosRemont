@@ -157,7 +157,8 @@ window.addEventListener('DOMContentLoaded', function () {
 
     slider ('.examples__slider--item', '.examples__prev', '.examples__next');
     slider ('.reviews__slider--item', '.reviews__prev', '.reviews__next');
-
+    slider ('.reviews_cols__slider--item', '.reviews_cols__prev', '.reviews_cols__next');
+    
     function slider (a, b, c) {
         let slideIndex = 1,
             slides = document.querySelectorAll(a),
@@ -193,6 +194,5 @@ window.addEventListener('DOMContentLoaded', function () {
         next.addEventListener('click', function() {
             plusSlides(1);
         });
-    }
-    
+    } 
 });
