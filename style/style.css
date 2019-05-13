@@ -1409,3 +1409,65 @@ input[type=range]:focus::-ms-fill-upper {
 .footer__col--contacts {
   width: 31%;
 }
+.feedback {
+  align-items: center;
+  justify-content: center;
+}
+.feedback .modal-title {
+  color: #fff;
+}
+.feedback .modal-content {
+  border: none;
+}
+.feedback .modal-header {
+  background-color: #E46C00;
+  border: none;
+}
+.feedback__form {
+  padding: 40px;
+  padding-bottom: 20px;
+}
+.feedback__input {
+  width: 100%;
+  height: 40px;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: lighter;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #b8b8b8;
+}
+.feedback__btn {
+  width: 100%;
+  height: 40px;
+  font-size: 20px;
+}
+.feedback__lable {
+  font-weight: lighter;
+  padding-left: 25px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+}
+.feedback__lable::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border: 1px solid #b8b8b8;
+}
+.feedback__checkbox {
+  display: none;
+}
+.feedback__checkbox:checked ~ .feedback__lable::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  background-image: url(../img/Vector3.svg);
+  background-position: center;
+  background-size: cover;
+}
