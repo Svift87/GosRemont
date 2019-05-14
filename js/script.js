@@ -11,31 +11,30 @@ window.addEventListener('DOMContentLoaded', function () {
         let priceTabList = document.querySelectorAll(z),                    // Создаем переменную с табами
             priceTabItem = document.querySelector(x),                       // Создаем переменную с контейнером
             priceCotent = document.querySelectorAll(c);                         // Создаем переменную с контентом
-
-        function hideTabContent(a) {                                        // Создаем функцию которая скрывает контент
-            for (let i = a; i < priceCotent.length; i++) {
-                priceCotent[i].classList.remove('hide');
-                priceCotent[i].classList.add('hide');
-            }
-    
-            for (let i = a; i < priceTabList.length; i++) {
-                priceTabList[i].classList.remove('active');
-            }
-        };
-    
-        hideTabContent(1);                                                  // Вызываем функцию с числом один что бы при цикле начиналось все не с первого элемента а со второго
-    
-        function showTabContent(b) {                                        // Создаем функцию которая показывает контент если он скрыт
-            if (priceCotent[b].classList.contains('hide')) {
-                priceCotent[b].classList.remove('hide');
-            }
-    
-            if (!priceCotent[b].classList.contains('hide')) {
-                priceTabList[b].classList.add('active');
-            }        
-        };
-    
-        if (priceTabItem == true) {
+        if (priceTabList.length > 0) {
+            function hideTabContent(a) {                                        // Создаем функцию которая скрывает контент
+                for (let i = a; i < priceCotent.length; i++) {
+                    priceCotent[i].classList.remove('hide');
+                    priceCotent[i].classList.add('hide');
+                }
+        
+                for (let i = a; i < priceTabList.length; i++) {
+                    priceTabList[i].classList.remove('active');
+                }
+            };
+        
+            hideTabContent(1);                                                  // Вызываем функцию с числом один что бы при цикле начиналось все не с первого элемента а со второго
+        
+            function showTabContent(b) {                                        // Создаем функцию которая показывает контент если он скрыт
+                if (priceCotent[b].classList.contains('hide')) {
+                    priceCotent[b].classList.remove('hide');
+                }
+        
+                if (!priceCotent[b].classList.contains('hide')) {
+                    priceTabList[b].classList.add('active');
+                }        
+            };    
+            
             priceTabItem.addEventListener('click', function (event) {             //
                 let target = event.target;
                 if (target && target.classList.contains('tabs')) {
@@ -47,9 +46,8 @@ window.addEventListener('DOMContentLoaded', function () {
                         }
                     }
                 }
-            });
+            });  
         }
-        
     }
     
     // первый калькулятор
@@ -77,7 +75,7 @@ window.addEventListener('DOMContentLoaded', function () {
             calcValue = document.querySelector('.calc__value'),
             calcTabList = document.querySelectorAll('.calc__tab--list'),
             calcRadioBtn = document.querySelectorAll('.calc__radio__btn');
-        if (calcWormInput == true) {
+        if (calcWormInput != undefined) {
             let objInput = {
                 room: calcRadioBtn[0].value,
                 typeOfRepair: calcRadio[0].value
@@ -166,11 +164,12 @@ window.addEventListener('DOMContentLoaded', function () {
     
     function slider (a, b, c) {
         
-            let slideIndex = 1,
-                slides = document.querySelectorAll(a),
-                prev = document.querySelector(b),
-                next = document.querySelector(c);
-            if (slides.length > 0) {
+        let slideIndex = 1,
+            slides = document.querySelectorAll(a),
+            prev = document.querySelector(b),
+            next = document.querySelector(c);
+            
+        if (slides.length > 0) {
             showSlides(slideIndex);
 
             function showSlides (n) {
