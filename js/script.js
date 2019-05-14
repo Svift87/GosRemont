@@ -35,18 +35,21 @@ window.addEventListener('DOMContentLoaded', function () {
             }        
         };
     
-        priceTabItem.addEventListener('click', function (event) {             //
-            let target = event.target;
-            if (target && target.classList.contains('tabs')) {
-                for (let i = 0; i < priceTabList.length; i++) {
-                    if (target == priceTabList[i]) {
-                        hideTabContent(0);
-                        showTabContent(i);
-                        break;
+        if (priceTabItem == true) {
+            priceTabItem.addEventListener('click', function (event) {             //
+                let target = event.target;
+                if (target && target.classList.contains('tabs')) {
+                    for (let i = 0; i < priceTabList.length; i++) {
+                        if (target == priceTabList[i]) {
+                            hideTabContent(0);
+                            showTabContent(i);
+                            break;
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
+        
     }
     
     // первый калькулятор
@@ -74,81 +77,83 @@ window.addEventListener('DOMContentLoaded', function () {
             calcValue = document.querySelector('.calc__value'),
             calcTabList = document.querySelectorAll('.calc__tab--list'),
             calcRadioBtn = document.querySelectorAll('.calc__radio__btn');
-
-        let objInput = {
-            room: calcRadioBtn[0].value,
-            typeOfRepair: calcRadio[0].value
-        }
-
-        calcNumTop.innerHTML = calcWormInput.value;
-        calcNumTop.style.left = calcWormInput.value / 2 + '%';
-        calcInput.value = calcWormInput.value;
-
-        calcWormInput.addEventListener('input', function() {
+        if (calcWormInput == true) {
+            let objInput = {
+                room: calcRadioBtn[0].value,
+                typeOfRepair: calcRadio[0].value
+            }
+    
             calcNumTop.innerHTML = calcWormInput.value;
             calcNumTop.style.left = calcWormInput.value / 2 + '%';
-            calcInput.value = calcWormInput.value;    
+            calcInput.value = calcWormInput.value;
+    
+            calcWormInput.addEventListener('input', function() {
+                calcNumTop.innerHTML = calcWormInput.value;
+                calcNumTop.style.left = calcWormInput.value / 2 + '%';
+                calcInput.value = calcWormInput.value;    
+                repairsView();
+                console.log(objInput);
+            });
+    
+            // Выбор вида ремонта  
+    
+            function repairsView() {
+    
+                function delRemuveInput() {
+                    for (let i = 0; calcView.length > i; i++) {        
+                        calcRadio[i].removeAttribute('checked');
+                        calcView[i].classList.remove('calc__view--active');
+                    } 
+                };
+    
+                function delRemuve() {
+                    for (let a = 0; calcTabList.length > a; a++) {        
+                        calcRadioBtn[a].removeAttribute('checked');
+                        calcTabList[a].classList.remove('active');
+                    } 
+                };
+    
+                for (let i = 0; calcTabList.length > i; i++) {
+                    calcTabList[i].addEventListener('click', function() {
+                        delRemuve();
+    
+                        calcRadioBtn[i].setAttribute('checked', '');   
+    
+                        if (calcRadioBtn[i].hasAttribute('checked')) {                
+                            calcTabList[i].classList.add('active');
+                            objInput.room = calcRadioBtn[i].value;
+                        }
+    
+                        payment ();
+                    })
+                }
+    
+                for (let i = 0; calcView.length > i; i++) {
+                    calcView[i].addEventListener('click', function() {
+                        delRemuveInput();
+    
+                        calcRadio[i].setAttribute('checked', '');   
+    
+                        if (calcRadio[i].hasAttribute('checked')) {                
+                            calcView[i].classList.add('calc__view--active');
+                            objInput.typeOfRepair = calcRadio[i].value;
+                        }                      
+    
+                        payment ();
+                    });
+                } 
+    
+                function payment () {
+                    calcValue.innerHTML = objInput.room * objInput.typeOfRepair * calcInput.value;
+                }
+    
+                payment ();
+    
+            }
+    
             repairsView();
-            console.log(objInput);
-        });
-
-        // Выбор вида ремонта  
-
-        function repairsView() {
-
-            function delRemuveInput() {
-                for (let i = 0; calcView.length > i; i++) {        
-                    calcRadio[i].removeAttribute('checked');
-                    calcView[i].classList.remove('calc__view--active');
-                } 
-            };
-
-            function delRemuve() {
-                for (let a = 0; calcTabList.length > a; a++) {        
-                    calcRadioBtn[a].removeAttribute('checked');
-                    calcTabList[a].classList.remove('active');
-                } 
-            };
-
-            for (let i = 0; calcTabList.length > i; i++) {
-                calcTabList[i].addEventListener('click', function() {
-                    delRemuve();
-
-                    calcRadioBtn[i].setAttribute('checked', '');   
-
-                    if (calcRadioBtn[i].hasAttribute('checked')) {                
-                        calcTabList[i].classList.add('active');
-                        objInput.room = calcRadioBtn[i].value;
-                    }
-
-                    payment ();
-                })
-            }
-
-            for (let i = 0; calcView.length > i; i++) {
-                calcView[i].addEventListener('click', function() {
-                    delRemuveInput();
-
-                    calcRadio[i].setAttribute('checked', '');   
-
-                    if (calcRadio[i].hasAttribute('checked')) {                
-                        calcView[i].classList.add('calc__view--active');
-                        objInput.typeOfRepair = calcRadio[i].value;
-                    }                      
-
-                    payment ();
-                });
-            } 
-
-            function payment () {
-                calcValue.innerHTML = objInput.room * objInput.typeOfRepair * calcInput.value;
-            }
-
-            payment ();
-
         }
-
-        repairsView();
+        
     }
     
     calc();
@@ -160,39 +165,42 @@ window.addEventListener('DOMContentLoaded', function () {
     slider ('.reviews_cols__slider--item', '.reviews_cols__prev', '.reviews_cols__next');
     
     function slider (a, b, c) {
-        let slideIndex = 1,
-            slides = document.querySelectorAll(a),
-            prev = document.querySelector(b),
-            next = document.querySelector(c);
-
-        showSlides(slideIndex);
-
-        function showSlides (n) {
-
-            if (n > slides.length) {
-                slideIndex = 1;
-            }
-
-            if (n < 1) {
-                slideIndex = slides.length;
-            }
-
-            slides.forEach((item) => item.style.display = 'none');
-
-            slides[slideIndex - 1].style.display = 'flex';
-        }
-
-        function plusSlides(n) {
-            showSlides(slideIndex += n);
-        }
-
-        prev.addEventListener('click', function() {
-            plusSlides(-1);
-        });
-
         
-        next.addEventListener('click', function() {
-            plusSlides(1);
-        });
+            let slideIndex = 1,
+                slides = document.querySelectorAll(a),
+                prev = document.querySelector(b),
+                next = document.querySelector(c);
+            if (slides.length > 0) {
+            showSlides(slideIndex);
+
+            function showSlides (n) {
+
+                if (n > slides.length) {
+                    slideIndex = 1;
+                }
+
+                if (n < 1) {
+                    slideIndex = slides.length;
+                }
+
+                slides.forEach((item) => item.style.display = 'none');
+                
+                slides[slideIndex - 1].style.display = 'flex';
+            }
+
+            function plusSlides(n) {
+                showSlides(slideIndex += n);
+            }
+
+            prev.addEventListener('click', function() {
+                plusSlides(-1);
+            });
+
+            
+            next.addEventListener('click', function() {
+                plusSlides(1);
+            });
+        }
+        
     } 
 });
