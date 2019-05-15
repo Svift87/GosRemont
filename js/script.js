@@ -90,7 +90,6 @@ window.addEventListener('DOMContentLoaded', function () {
                 calcNumTop.style.left = calcWormInput.value / 2 + '%';
                 calcInput.value = calcWormInput.value;    
                 repairsView();
-                console.log(objInput);
             });
     
             // Выбор вида ремонта  
