@@ -155,11 +155,50 @@ window.addEventListener('DOMContentLoaded', function () {
     
     calc();
 
+    // калькулятор в карточке услуги
+
+    function productCalc() {
+        let square = document.querySelector('#inputSquare'),
+            repairs = document.querySelector('#inputRepairs'),
+            object = document.querySelector('#inputObject'),
+            productCalcValueJob = document.querySelector('.product_calc__value__job'),
+            productCalcValueDraft = document.querySelector('.product_calc__value__draft'),
+            productCalcValueFair = document.querySelector('.product_calc__value__fair');
+        
+        if (square != undefined) {
+            function productCalcValue () {
+                productCalcValueJob.innerHTML = Math.round(square.value * repairs.value * object.value);
+                productCalcValueDraft.innerHTML = Math.round(productCalcValueJob.innerHTML * 0.3);
+                productCalcValueFair.innerHTML = Math.round(productCalcValueJob.innerHTML * 0.7);
+                productCalcValueJob.innerHTML += ' руб';
+                productCalcValueDraft.innerHTML += ' руб';
+                productCalcValueFair.innerHTML += ' руб';
+            } 
+    
+            square.addEventListener('input', function() {
+                productCalcValue ()
+            })
+    
+            repairs.addEventListener('input', function() {
+                productCalcValue ()
+            })
+    
+            object.addEventListener('input', function() {
+                productCalcValue ()
+            })
+        }        
+    }
+
+    productCalc();
+
     // Slider
 
     slider ('.examples__slider--item', '.examples__prev', '.examples__next');
     slider ('.reviews__slider--item', '.reviews__prev', '.reviews__next');
     slider ('.reviews_cols__slider--item', '.reviews_cols__prev', '.reviews_cols__next');
+    slider ('.workexamples__gallery', '.workexamples__prev', '.workexamples__next');
+    slider ('.product_examples__slider_container', '.product_examples__prev', '.product_examples__next');
+    slider ('.otherprojects__slider--items', '.otherprojects__prev', '.otherprojects__next');
     
     function slider (a, b, c) {
         
@@ -167,7 +206,6 @@ window.addEventListener('DOMContentLoaded', function () {
             slides = document.querySelectorAll(a),
             prev = document.querySelector(b),
             next = document.querySelector(c);
-            
         if (slides.length > 0) {
             showSlides(slideIndex);
 
@@ -201,4 +239,33 @@ window.addEventListener('DOMContentLoaded', function () {
         }
         
     } 
+
+    // Примеры квартир
+
+    function workExamples (a, b) {
+        let workexamplesBigImage = document.querySelectorAll(a),
+            workexamplesSmallImage = document.querySelectorAll(b),
+            shadowBlock = document.querySelectorAll('.shadow__block');
+        if (workexamplesBigImage != undefined) {            
+            for (let i = 0; workexamplesSmallImage.length > i; i++) {
+                for (let a = 0; workexamplesBigImage.length > a; a++) {
+                    workexamplesBigImage[a].src = workexamplesSmallImage[0].src;
+                    shadowBlock[0].style.display = 'none';
+                    
+                    workexamplesSmallImage[i].addEventListener('click', function(){
+                        for (let c = 0; shadowBlock.length > c; c++) {
+                            shadowBlock[c].style.display = 'block';
+                        }
+                        workexamplesBigImage[a].src = workexamplesSmallImage[i].src;
+                        shadowBlock[i].style.display = 'none';
+                    }) 
+                }                  
+            }
+        }        
+    }
+
+    workExamples ('.workexamples__big_image', '.workexamples__small_image');
+    workExamples ('.product_examples__big_image', '.workexamples__small_image');
+
+
 });
