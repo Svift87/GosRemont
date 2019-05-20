@@ -12,7 +12,7 @@ window.addEventListener('DOMContentLoaded', function () {
             priceTabItem = document.querySelector(x),                       // Создаем переменную с контейнером
             priceCotent = document.querySelectorAll(c);                         // Создаем переменную с контентом
         if (priceTabList.length > 0) {
-            function hideTabContent(a) {                                        // Создаем функцию которая скрывает контент
+            let hideTabContent = function(a) {                                        // Создаем функцию которая скрывает контент
                 for (let i = a; i < priceCotent.length; i++) {
                     priceCotent[i].classList.remove('hide');
                     priceCotent[i].classList.add('hide');
@@ -25,7 +25,7 @@ window.addEventListener('DOMContentLoaded', function () {
         
             hideTabContent(1);                                                  // Вызываем функцию с числом один что бы при цикле начиналось все не с первого элемента а со второго
         
-            function showTabContent(b) {                                        // Создаем функцию которая показывает контент если он скрыт
+            let showTabContent = function(b) {                                        // Создаем функцию которая показывает контент если он скрыт
                 if (priceCotent[b].classList.contains('hide')) {
                     priceCotent[b].classList.remove('hide');
                 }
@@ -94,16 +94,16 @@ window.addEventListener('DOMContentLoaded', function () {
     
             // Выбор вида ремонта  
     
-            function repairsView() {
+            let repairsView = function() {
     
-                function delRemuveInput() {
+                let delRemuveInput = function () {
                     for (let i = 0; calcView.length > i; i++) {        
                         calcRadio[i].removeAttribute('checked');
                         calcView[i].classList.remove('calc__view--active');
                     } 
                 };
     
-                function delRemuve() {
+                let delRemuve = function () {
                     for (let a = 0; calcTabList.length > a; a++) {        
                         calcRadioBtn[a].removeAttribute('checked');
                         calcTabList[a].classList.remove('active');
@@ -140,7 +140,7 @@ window.addEventListener('DOMContentLoaded', function () {
                     });
                 } 
     
-                function payment () {
+                let payment = function  () {
                     calcValue.innerHTML = objInput.room * objInput.typeOfRepair * calcInput.value;
                 }
     
@@ -166,7 +166,7 @@ window.addEventListener('DOMContentLoaded', function () {
             productCalcValueFair = document.querySelector('.product_calc__value__fair');
         
         if (square != undefined) {
-            function productCalcValue () {
+            let productCalcValue = function () {
                 productCalcValueJob.innerHTML = Math.round(square.value * repairs.value * object.value);
                 productCalcValueDraft.innerHTML = Math.round(productCalcValueJob.innerHTML * 0.3);
                 productCalcValueFair.innerHTML = Math.round(productCalcValueJob.innerHTML * 0.7);
@@ -194,8 +194,6 @@ window.addEventListener('DOMContentLoaded', function () {
     // Slider
 
     slider ('.examples__slider--item', '.examples__prev', '.examples__next');
-    slider ('.reviews__slider--item', '.reviews__prev', '.reviews__next');
-    slider ('.reviews_cols__slider--item', '.reviews_cols__prev', '.reviews_cols__next');
     slider ('.workexamples__gallery', '.workexamples__prev', '.workexamples__next');
     slider ('.product_examples__slider_container', '.product_examples__prev', '.product_examples__next');
     slider ('.otherprojects__slider--items', '.otherprojects__prev', '.otherprojects__next');
@@ -206,10 +204,8 @@ window.addEventListener('DOMContentLoaded', function () {
             slides = document.querySelectorAll(a),
             prev = document.querySelector(b),
             next = document.querySelector(c);
-        if (slides.length > 0) {
-            showSlides(slideIndex);
-
-            function showSlides (n) {
+        if (slides.length > 0) {    
+            let showSlides = function  (n) {
 
                 if (n > slides.length) {
                     slideIndex = 1;
@@ -224,7 +220,9 @@ window.addEventListener('DOMContentLoaded', function () {
                 slides[slideIndex - 1].style.display = 'flex';
             }
 
-            function plusSlides(n) {
+            showSlides(slideIndex);
+
+            let plusSlides = function (n) {
                 showSlides(slideIndex += n);
             }
 
@@ -236,8 +234,7 @@ window.addEventListener('DOMContentLoaded', function () {
             next.addEventListener('click', function() {
                 plusSlides(1);
             });
-        }
-        
+        }        
     } 
 
     // Примеры квартир
@@ -266,6 +263,63 @@ window.addEventListener('DOMContentLoaded', function () {
 
     workExamples ('.workexamples__big_image', '.workexamples__small_image');
     workExamples ('.product_examples__big_image', '.workexamples__small_image');
+
+    sliderNew ('.reviews_cols__slider--item', '.reviews__prev', '.reviews__next');
+
+    function sliderNew (a, b, c) {
+        
+        let slideIndex = 1,
+            slides = document.querySelectorAll(a),
+            prev = document.querySelector(b),
+            next = document.querySelector(c);
+        if (slides.length > 0) {    
+            let showSlides = function  (n) {
+                if (n > slides.length) {
+                    slideIndex = 1;
+                }
+
+                if (n < 1) {
+                    slideIndex = slides.length;
+                }               
+
+                slides.forEach((item) => item.classList.add('hidden'));   
+                slides.forEach((item) => item.classList.remove('min__block', 'right', 'left'));   
+
+                slides[slideIndex - 1].classList.remove('hidden','min__block', 'right', 'left');
+                
+                if (slideIndex != slides.length) {
+                    slides[slideIndex].classList.remove('hidden');
+                    slides[slideIndex].classList.add('min__block', 'right');
+                } else {
+                    slides[0].classList.remove('hidden');
+                    slides[0].classList.add('min__block', 'right');
+                }                
+                
+                if (slides[1].classList.contains('right')) {
+                    slides[slides.length - 1].classList.remove('hidden');
+                    slides[slides.length - 1].classList.add('min__block', 'left');
+                } else {
+                    slides[slideIndex - 2].classList.remove('hidden');
+                    slides[slideIndex - 2].classList.add('min__block', 'left');
+                }
+            }
+
+            showSlides(slideIndex);
+
+            let plusSlides = function (n) {
+                showSlides(slideIndex += n);
+            }
+
+            prev.addEventListener('click', function() {
+                plusSlides(-1);
+            });
+
+            
+            next.addEventListener('click', function() {
+                plusSlides(1);
+            });
+        }        
+    } 
 
 
 });

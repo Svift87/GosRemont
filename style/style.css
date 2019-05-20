@@ -106,7 +106,7 @@ p {
   height: 10px;
   left: 0;
   border-radius: 50%;
-  top: 8px;
+  top: 5px;
 }
 ul {
   margin: 0;
@@ -3020,4 +3020,41 @@ input[type=range]:focus::-ms-fill-upper {
   -webkit-transition: 1s;
   transition: 1s;
   margin-top: -43px;
+}
+.hidden {
+  display: none;
+}
+.min__block {
+  position: absolute;
+  zoom: 0.7;
+  top: 0;
+  width: 100%;
+}
+.min__block.left {
+  left: -105%;
+}
+.min__block.right {
+  right: -105%;
+}
+.reviews__prev.new {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  width: 100%;
+  left: -95%;
+  background-color: rgba(0, 0, 0, 0);
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  height: 100%;
+}
+.reviews__next.new {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  height: 100%;
+  right: -95%;
 }
